@@ -1,0 +1,24 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ProgressBarWidgetClass "{6164972F999B6D86}" {
+   Name "VoiceRangeSlider"
+   Slot FrameWidgetSlot "{6164972F999B6DD7}" {
+    Anchor 0.5 1 0.5 1
+    PositionX -92.5
+    OffsetLeft -92.5
+    PositionY -285
+    OffsetTop -285
+    SizeX 185
+    OffsetRight -92.5
+    SizeY 28
+    OffsetBottom 257
+   }
+   Opacity 0
+   Color 0.561 0.439 0.071 1
+   Minimum 1
+   Maximum 6
+   Current 4
+  }
+ }
+}
