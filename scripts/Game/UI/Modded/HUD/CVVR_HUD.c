@@ -44,10 +44,12 @@ class CVVR_HUD: SCR_InfoDisplay {
 			return;
 		};
 		
-		float currentOpacity = m_wVoiceRangeSlider.GetOpacity();	
+		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
+		float currentTextOpacity = m_wVoiceRangeText.GetOpacity();
 		
-		if (currentOpacity < 0.65) {
-			m_wVoiceRangeSlider.SetOpacity(currentOpacity + 0.025);
+		if (currentSliderOpacity < 0.65 && currentTextOpacity < 0.65) {
+			m_wVoiceRangeSlider.SetOpacity(currentSliderOpacity + 0.025);
+			m_wVoiceRangeText.SetOpacity(currentTextOpacity + 0.025);
 		};
 		
 		int actionValue = m_InputManager.GetActionValue("CVVR_VoiceRangeAnalog");
@@ -57,9 +59,6 @@ class CVVR_HUD: SCR_InfoDisplay {
 		};
 		
 		m_wVoiceRangeSlider.SetCurrent(m_VoNMasterComponent.GetLocalVoiceRange());
-		
-		// Show text 
-		m_wVoiceRangeText.SetOpacity(0.75); // no transition yet, opacity 0 by default
 		
 		// Color
 		switch (m_VoNMasterComponent.GetLocalVoiceRange())
@@ -113,14 +112,15 @@ class CVVR_HUD: SCR_InfoDisplay {
 	//------------------------------------------------------------------------------------------------
 	protected void HideBar()
 	{
-		float currentOpacity = m_wVoiceRangeSlider.GetOpacity();
+		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
+		float currentTextOpacity = m_wVoiceRangeText.GetOpacity();
 		
-		if (currentOpacity <= 0) {
+		if (currentSliderOpacity <= 0 && currentTextOpacity <= 0) {
 			GetGame().GetCallqueue().Remove(HideBar);
 			return;
 		};
 		
-		m_wVoiceRangeSlider.SetOpacity(currentOpacity - 0.025);
-		m_wVoiceRangeText.SetOpacity(0); // no transition yet
+		m_wVoiceRangeSlider.SetOpacity(currentSliderOpacity - 0.025);
+		m_wVoiceRangeText.SetOpacity(currentTextOpacity - 0.025);
 	}
 };

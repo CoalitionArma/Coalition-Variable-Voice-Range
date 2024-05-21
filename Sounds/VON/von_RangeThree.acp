@@ -691,11 +691,11 @@ AudioClass {
    id 23571
    name "Amplitude 15-10"
    version 5
-   tl -257.571 -628.5
+   tl -258.571 -628.5
    ctl 0 -21
    parent "{9F8145144171C64B}Sounds/_SharedData/Configs/Amplitude/_SharedData/Amplitude_10-5.conf"
    innerRange 0
-   outerRange 14.5
+   outerRange 12.5
    slopeFactor 3.85
   }
  }

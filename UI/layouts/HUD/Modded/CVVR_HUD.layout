@@ -4,16 +4,15 @@ FrameWidgetClass {
   TextWidgetClass "{616B027994139975}" {
    Name "VoiceRangeText"
    Slot FrameWidgetSlot "{616B027994139947}" {
-    Anchor 0.5 0.784 0.5 0.784
-    PositionX -24.838
-    OffsetLeft -24.838
-    PositionY -8.672
-    OffsetTop -8.672
-    SizeX 99.999
-    OffsetRight -75.161
-    SizeY 30
-    OffsetBottom -21.328
-    SizeToContent 1
+    Anchor 0.5 1 0.5 1
+    PositionX -92.5
+    OffsetLeft -92.5
+    PositionY -261.22
+    OffsetTop -261.22
+    SizeX 185
+    OffsetRight -92.5
+    SizeY 16.161
+    OffsetBottom 245.059
    }
    Opacity 0
    Text "Whisper"
@@ -31,14 +30,14 @@ FrameWidgetClass {
    Name "VoiceRangeSlider"
    Slot FrameWidgetSlot "{6164972F999B6DD7}" {
     Anchor 0.5 1 0.5 1
-    PositionX -92.5
-    OffsetLeft -92.5
-    PositionY -285
-    OffsetTop -285
-    SizeX 185
-    OffsetRight -92.5
+    PositionX -97.5
+    OffsetLeft -97.5
+    PositionY -292.134
+    OffsetTop -292.1
+    SizeX 195
+    OffsetRight -97.5
     SizeY 28
-    OffsetBottom 257
+    OffsetBottom 264.1
    }
    Opacity 0
    Color 0.561 0.439 0.071 1

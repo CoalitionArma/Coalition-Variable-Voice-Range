@@ -695,7 +695,7 @@ AudioClass {
    ctl 0 -21
    parent "{9F8145144171C64B}Sounds/_SharedData/Configs/Amplitude/_SharedData/Amplitude_10-5.conf"
    innerRange 0
-   outerRange 28.5
+   outerRange 32.5
    slopeFactor 4.425
   }
  }
