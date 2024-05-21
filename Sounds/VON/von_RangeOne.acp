@@ -372,7 +372,6 @@ AudioClass {
    }
    varName "VON_Direct"
    varResource "{A60F08955792B575}Sounds/_SharedData/Variables/GlobalVariables.conf"
-   volume_dB -24
   }
  }
  buses {
@@ -692,7 +691,7 @@ AudioClass {
    id 23571
    name "Amplitude 15-10"
    version 5
-   tl -257.571 -628.5
+   tl -255.571 -628.5
    ctl 0 -21
    parent "{9F8145144171C64B}Sounds/_SharedData/Configs/Amplitude/_SharedData/Amplitude_10-5.conf"
    innerRange 0

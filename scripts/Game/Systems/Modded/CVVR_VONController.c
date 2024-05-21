@@ -1,8 +1,17 @@
 
 modded class SCR_VONController : ScriptComponent
 {
+	protected CVVR_VoNComponentRangeOne m_VoNComponentRangeOne;    
+	protected CVVR_VoNComponentRangeTwo m_VoNComponentRangeTwo;    
+	protected CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
+	protected CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
+	protected CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
+	protected CVVR_VoNComponentRangeSix m_VoNComponentRangeSix;
+	protected CVVR_VoNMasterComponent m_VoNMasterComponent; 
+	
 	void ReloadVONForRangeChange() {
 		DeactivateVON(EVONTransmitType.DIRECT);
+		OnVONToggle(0,0);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -12,6 +21,14 @@ modded class SCR_VONController : ScriptComponent
 	{				
 		if (m_bIsToggledDirect || m_bIsToggledChannel)
 			OnVONToggle(0,0);
+		
+		m_VoNComponentRangeOne   = CVVR_VoNComponentRangeOne.Cast(to.FindComponent(CVVR_VoNComponentRangeOne));    
+		m_VoNComponentRangeTwo   = CVVR_VoNComponentRangeTwo.Cast(to.FindComponent(CVVR_VoNComponentRangeTwo));    
+		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(to.FindComponent(CVVR_VoNComponentRangeThree));    
+		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(to.FindComponent(CVVR_VoNComponentRangeFour));    
+		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(to.FindComponent(CVVR_VoNComponentRangeFive));    
+		m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(to.FindComponent(CVVR_VoNComponentRangeSix));
+		m_VoNMasterComponent     = CVVR_VoNMasterComponent.Cast(to.FindComponent(CVVR_VoNMasterComponent));
 		
 		m_sLocalEncryptionKey = string.Empty;	
 		
@@ -59,10 +76,18 @@ modded class SCR_VONController : ScriptComponent
 	//! Assign VON comp by fetching it from controlled entity
 	override bool AssignVONComponent()
 	{
-		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(GetOwner()).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
+		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
+		m_VoNMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(GetOwner()).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
 		
-		if(!vonMasterComponent)
+		if(!m_VoNMasterComponent || !ent)
 			return false;
+		
+		m_VoNComponentRangeOne   = CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne));    
+		m_VoNComponentRangeTwo   = CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo));    
+		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree));    
+		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour));    
+		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));    
+		m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix));
 		
 		return true;
 	}
@@ -95,12 +120,12 @@ modded class SCR_VONController : ScriptComponent
 		
 		if (vonMasterComponent) {	
 			switch (vonMasterComponent.GetLocalVoiceRange()) {
-				case 1  : {CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne)).SetCapture(true);     break;};
-				case 2  : {CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo)).SetCapture(true);     break;};
-				case 3  : {CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree)).SetCapture(true); break;};
-				case 5  : {CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive)).SetCapture(true);   break;};
-				case 6  : {CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix)).SetCapture(true);     break;};
-				default : {CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).SetCapture(true)};
+				case 1  : {m_VoNComponentRangeOne.SetCapture(true);   break;};
+				case 2  : {m_VoNComponentRangeTwo.SetCapture(true);   break;};
+				case 3  : {m_VoNComponentRangeThree.SetCapture(true); break;};
+				case 5  : {m_VoNComponentRangeFive.SetCapture(true);  break;};
+				case 6  : {m_VoNComponentRangeSix.SetCapture(true);   break;};
+				default : {m_VoNComponentRangeFour.SetCapture(true);        };
 			};
 			m_bIsActive = true;
 		};
@@ -118,12 +143,12 @@ modded class SCR_VONController : ScriptComponent
 		
 		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
 		
-		CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne)).SetCapture(false);     
-		CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo)).SetCapture(false);     
-		CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree)).SetCapture(false); 
-		CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive)).SetCapture(false);   
-		CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix)).SetCapture(false);     
-		CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).SetCapture(false);
+		m_VoNComponentRangeOne.SetCapture(false);     
+		m_VoNComponentRangeTwo.SetCapture(false);     
+		m_VoNComponentRangeThree.SetCapture(false); 
+		m_VoNComponentRangeFour.SetCapture(false);   
+		m_VoNComponentRangeFive.SetCapture(false);     
+		m_VoNComponentRangeSix.SetCapture(false);
 		
 		m_sActiveHoldAction = string.Empty;
 					
@@ -143,97 +168,91 @@ modded class SCR_VONController : ScriptComponent
 		if (vonMasterComponent) {	
 			switch (vonMasterComponent.GetLocalVoiceRange()) {
 				case 1 : {
-					CVVR_VoNComponentRangeOne vonComp = CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeOne.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeOne.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeOne.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeOne.SetTransmitRadio(null);
 					}	
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
 				case 2 : {
-					CVVR_VoNComponentRangeTwo vonComp = CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeTwo.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeTwo.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeTwo.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeTwo.SetTransmitRadio(null);
 					}	
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
 				case 3 : {
-					CVVR_VoNComponentRangeThree vonComp = CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeThree.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeThree.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeThree.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeThree.SetTransmitRadio(null);
 					}	
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
 				case 5 : {
-					CVVR_VoNComponentRangeFive vonComp = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeFive.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeFive.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeFive.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeFive.SetTransmitRadio(null);
 					}	
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
 				case 6 : {
-					CVVR_VoNComponentRangeSix vonComp = CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeSix.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeSix.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeSix.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeSix.SetTransmitRadio(null);
 					}	
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
 				default : {
-					CVVR_VoNComponentRangeFour vonComp = CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour));
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						vonComp.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						vonComp.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeFour.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						vonComp.SetCommMethod(ECommMethod.DIRECT);
-						vonComp.SetTransmitRadio(null);
+						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeFour.SetTransmitRadio(null);
 					}	
 					break;
 				};

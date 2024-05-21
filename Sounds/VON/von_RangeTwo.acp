@@ -372,7 +372,6 @@ AudioClass {
    }
    varName "VON_Direct"
    varResource "{A60F08955792B575}Sounds/_SharedData/Variables/GlobalVariables.conf"
-   volume_dB -24
   }
  }
  buses {
