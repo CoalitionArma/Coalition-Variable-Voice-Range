@@ -212,6 +212,21 @@ modded class SCR_VONController : ScriptComponent
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
+				case 4 : {
+					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
+					{
+						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeFour.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						SetEntryActive(entry);
+					}
+					else 
+					{
+						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeFour.SetTransmitRadio(null);
+					}	
+					break;
+				};
+				//------------------------------------------------------------------------------------------------
 				case 5 : {
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
