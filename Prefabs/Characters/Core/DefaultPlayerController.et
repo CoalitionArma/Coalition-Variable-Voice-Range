@@ -3,7 +3,7 @@ SCR_PlayerController {
  components {
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
-    CVVR_HUD "{6164972E3A76DBA5}" {
+    CVVR_HUD "{616A49DE206B7674}" {
      m_LayoutPath "{353B96F079BBCC76}UI/layouts/HUD/Modded/CVVR_HUD.layout"
     }
    }

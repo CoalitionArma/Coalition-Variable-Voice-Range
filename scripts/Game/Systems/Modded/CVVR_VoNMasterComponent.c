@@ -18,6 +18,8 @@ class CVVR_VoNMasterComponent: ScriptComponent {
 		if (voiceRangeSum >= 1 && voiceRangeSum <= 6) {
 			m_iLocalVoiceRange = voiceRangeSum;
 			
+			Print(m_iLocalVoiceRange);
+			
 			Replication.BumpMe();
 		
 			m_VONController = SCR_VONController.Cast(GetGame().GetPlayerController().FindComponent(SCR_VONController));

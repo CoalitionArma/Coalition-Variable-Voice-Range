@@ -2,7 +2,7 @@
 modded class SCR_VONController : ScriptComponent
 {
 	void ReloadVONForRangeChange() {
-		OnVONToggle(0,0);
+		DeactivateVON(EVONTransmitType.DIRECT);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -117,18 +117,13 @@ modded class SCR_VONController : ScriptComponent
 		m_bIsActive = false;
 		
 		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
-		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(ent.FindComponent(CVVR_VoNMasterComponent));
 		
-		if (vonMasterComponent) {	
-			switch (vonMasterComponent.GetLocalVoiceRange()) {
-				case 1  : {CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne)).SetCapture(false);     break;};
-				case 2  : {CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo)).SetCapture(false);     break;};
-				case 3  : {CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree)).SetCapture(false); break;};
-				case 5  : {CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive)).SetCapture(false);   break;};
-				case 6  : {CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix)).SetCapture(false);     break;};
-				default : {CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).SetCapture(false)};
-			};
-		};
+		CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne)).SetCapture(false);     
+		CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo)).SetCapture(false);     
+		CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree)).SetCapture(false); 
+		CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive)).SetCapture(false);   
+		CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix)).SetCapture(false);     
+		CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).SetCapture(false);
 		
 		m_sActiveHoldAction = string.Empty;
 					
