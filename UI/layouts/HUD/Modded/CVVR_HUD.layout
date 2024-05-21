@@ -1,6 +1,32 @@
 FrameWidgetClass {
  Name "rootFrame"
  {
+  TextWidgetClass "{616B027994139975}" {
+   Name "VoiceRangeText"
+   Slot FrameWidgetSlot "{616B027994139947}" {
+    Anchor 0.5 0.784 0.5 0.784
+    PositionX -24.838
+    OffsetLeft -24.838
+    PositionY -8.672
+    OffsetTop -8.672
+    SizeX 99.999
+    OffsetRight -75.161
+    SizeY 30
+    OffsetBottom -21.328
+    SizeToContent 1
+   }
+   Opacity 0
+   Text "Whisper"
+   "Font Size" 15
+   "Min Font Size" 15
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{616B0276BF6D951C}" {
+    Bold 1
+    OutlineSize 5
+    ShadowSize 10
+   }
+  }
   ProgressBarWidgetClass "{6164972F999B6D86}" {
    Name "VoiceRangeSlider"
    Slot FrameWidgetSlot "{6164972F999B6DD7}" {
@@ -17,8 +43,8 @@ FrameWidgetClass {
    Opacity 0
    Color 0.561 0.439 0.071 1
    Minimum 1
-   Maximum 6
-   Current 4
+   Maximum 5
+   Current 3
   }
  }
 }

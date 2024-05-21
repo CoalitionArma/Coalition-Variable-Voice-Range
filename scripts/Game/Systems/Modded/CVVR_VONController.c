@@ -6,7 +6,7 @@ modded class SCR_VONController : ScriptComponent
 	protected CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
 	protected CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
 	protected CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
-	protected CVVR_VoNComponentRangeSix m_VoNComponentRangeSix;
+	//protected CVVR_VoNComponentRangeSix m_VoNComponentRangeSix;
 	protected CVVR_VoNMasterComponent m_VoNMasterComponent; 
 	
 	void ReloadVONForRangeChange() {
@@ -27,7 +27,7 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(to.FindComponent(CVVR_VoNComponentRangeThree));    
 		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(to.FindComponent(CVVR_VoNComponentRangeFour));    
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(to.FindComponent(CVVR_VoNComponentRangeFive));    
-		m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(to.FindComponent(CVVR_VoNComponentRangeSix));
+		//m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(to.FindComponent(CVVR_VoNComponentRangeSix));
 		m_VoNMasterComponent     = CVVR_VoNMasterComponent.Cast(to.FindComponent(CVVR_VoNMasterComponent));
 		
 		m_sLocalEncryptionKey = string.Empty;	
@@ -87,7 +87,7 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree));    
 		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour));    
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));    
-		m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix));
+		//m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix));
 		
 		return true;
 	}
@@ -123,9 +123,9 @@ modded class SCR_VONController : ScriptComponent
 				case 1  : {m_VoNComponentRangeOne.SetCapture(true);   break;};
 				case 2  : {m_VoNComponentRangeTwo.SetCapture(true);   break;};
 				case 3  : {m_VoNComponentRangeThree.SetCapture(true); break;};
+				case 4  : {m_VoNComponentRangeFour.SetCapture(true);  break;};
 				case 5  : {m_VoNComponentRangeFive.SetCapture(true);  break;};
-				case 6  : {m_VoNComponentRangeSix.SetCapture(true);   break;};
-				default : {m_VoNComponentRangeFour.SetCapture(true);        };
+				default : {m_VoNComponentRangeThree.SetCapture(true);};
 			};
 			m_bIsActive = true;
 		};
@@ -148,7 +148,7 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree.SetCapture(false); 
 		m_VoNComponentRangeFour.SetCapture(false);   
 		m_VoNComponentRangeFive.SetCapture(false);     
-		m_VoNComponentRangeSix.SetCapture(false);
+		//m_VoNComponentRangeSix.SetCapture(false);
 		
 		m_sActiveHoldAction = string.Empty;
 					
@@ -227,7 +227,7 @@ modded class SCR_VONController : ScriptComponent
 					break;
 				};
 				//------------------------------------------------------------------------------------------------
-				case 6 : {
+				/*case 6 : {
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
 						m_VoNComponentRangeSix.SetCommMethod(ECommMethod.SQUAD_RADIO);
@@ -240,19 +240,19 @@ modded class SCR_VONController : ScriptComponent
 						m_VoNComponentRangeSix.SetTransmitRadio(null);
 					}	
 					break;
-				};
+				};*/
 				//------------------------------------------------------------------------------------------------
 				default : {
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
-						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						m_VoNComponentRangeFour.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
+						m_VoNComponentRangeThree.SetCommMethod(ECommMethod.SQUAD_RADIO);
+						m_VoNComponentRangeThree.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
 						SetEntryActive(entry);
 					}
 					else 
 					{
-						m_VoNComponentRangeFour.SetCommMethod(ECommMethod.DIRECT);
-						m_VoNComponentRangeFour.SetTransmitRadio(null);
+						m_VoNComponentRangeThree.SetCommMethod(ECommMethod.DIRECT);
+						m_VoNComponentRangeThree.SetTransmitRadio(null);
 					}	
 					break;
 				};

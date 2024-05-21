@@ -1,6 +1,7 @@
 class CVVR_HUD: SCR_InfoDisplay {
 	protected CVVR_VoNMasterComponent m_VoNMasterComponent;
 	protected ProgressBarWidget m_wVoiceRangeSlider;
+	protected TextWidget m_wVoiceRangeText;
 	protected InputManager m_InputManager;
 	protected IEntity m_Owner;
 
@@ -38,6 +39,7 @@ class CVVR_HUD: SCR_InfoDisplay {
 		{
 			m_InputManager = GetGame().GetInputManager();
 			m_wVoiceRangeSlider = ProgressBarWidget.Cast(m_wRoot.FindWidget("VoiceRangeSlider"));
+			m_wVoiceRangeText = TextWidget.Cast(m_wRoot.FindWidget("VoiceRangeText"));
 			m_VoNMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(m_Owner).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
 			return;
 		};
@@ -55,6 +57,50 @@ class CVVR_HUD: SCR_InfoDisplay {
 		};
 		
 		m_wVoiceRangeSlider.SetCurrent(m_VoNMasterComponent.GetLocalVoiceRange());
+		
+		// Show text 
+		m_wVoiceRangeText.SetOpacity(0.75); // no transition yet, opacity 0 by default
+		
+		// Color
+		switch (m_VoNMasterComponent.GetLocalVoiceRange())
+		{
+			case 1: 
+			{ 
+				m_wVoiceRangeSlider.SetColor(Color.SpringGreen);
+				m_wVoiceRangeText.SetText("Whisper"); 
+				m_wVoiceRangeText.SetColor(Color.SpringGreen);
+				break; 
+			};
+			case 2:
+			{
+				m_wVoiceRangeSlider.SetColor(Color.Green); 
+				m_wVoiceRangeText.SetText("Close Contact"); 
+				m_wVoiceRangeText.SetColor(Color.Green);
+				break; 
+			};
+			case 3:
+			{
+				m_wVoiceRangeSlider.SetColor(Color.Yellow); 
+				m_wVoiceRangeText.SetText("Normal"); 
+				m_wVoiceRangeText.SetColor(Color.Yellow);
+				break; 
+			};
+			case 4:
+			{
+				m_wVoiceRangeSlider.SetColor(Color.Red); 
+				m_wVoiceRangeText.SetText("Yelling"); 
+				m_wVoiceRangeText.SetColor(Color.Red);
+				break; 
+			};
+			case 5:
+			{
+				m_wVoiceRangeSlider.SetColor(Color.DarkRed);
+				m_wVoiceRangeText.SetText("May I Speak To Your Manager");  
+				m_wVoiceRangeText.SetColor(Color.DarkRed);
+				break; 
+			}
+			default: { m_wVoiceRangeSlider.SetColor(Color.Yellow); m_wVoiceRangeText.SetColor(Color.Yellow); break; };
+		};
 	};
 	
 	//------------------------------------------------------------------------------------------------
@@ -75,5 +121,6 @@ class CVVR_HUD: SCR_InfoDisplay {
 		};
 		
 		m_wVoiceRangeSlider.SetOpacity(currentOpacity - 0.025);
+		m_wVoiceRangeText.SetOpacity(0); // no transition yet
 	}
 };
