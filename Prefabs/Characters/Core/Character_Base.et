@@ -1,29 +1,25 @@
 SCR_ChimeraCharacter {
  ID "520EC961A090B1EE"
  components {
-  CVVR_VoNMasterComponent "{616497218C7BDCF8}" {
-   components {
-    CVVR_VoNComponentRangeFive "{61649721A45B4B4C}" {
-     "Speaking Range" 32
-     Filename "{BE4178DDA592237A}Sounds/VON/von_RangeFive.acp"
-    }
-    CVVR_VoNComponentRangeFour "{61649721BEE45BB9}" {
-     "Speaking Range" 20
-     Filename "{0CA0C7A2AEEAB0D2}Sounds/VON/von_RangeFour.acp"
-    }
-    CVVR_VoNComponentRangeOne "{616A49D0A223C1D6}" {
-     "Speaking Range" 3
-     Filename "{28368561C655455E}Sounds/VON/von_RangeOne.acp"
-    }
-    CVVR_VoNComponentRangeThree "{61649721B1939887}" {
-     "Speaking Range" 12
-     Filename "{7CEB1F6ADCB89244}Sounds/VON/von_RangeThree.acp"
-    }
-    CVVR_VoNComponentRangeTwo "{616A49D0AD0DC6D0}" {
-     "Speaking Range" 7
-     Filename "{60472E79D4CBA11E}Sounds/VON/von_RangeTwo.acp"
-    }
-   }
+  CVVR_VoNComponentRangeFive "{616B59E3A1E983E2}" {
+   "Speaking Range" 32
+   Filename "{BE4178DDA592237A}Sounds/VON/von_RangeFive.acp"
+  }
+  CVVR_VoNComponentRangeFour "{616B59E3A0218C14}" {
+   "Speaking Range" 20
+   Filename "{0CA0C7A2AEEAB0D2}Sounds/VON/von_RangeFour.acp"
+  }
+  CVVR_VoNComponentRangeOne "{616B59E3A64F9CDE}" {
+   "Speaking Range" 3
+   Filename "{28368561C655455E}Sounds/VON/von_RangeOne.acp"
+  }
+  CVVR_VoNComponentRangeThree "{616B59E3AC5C47CB}" {
+   "Speaking Range" 12
+   Filename "{7CEB1F6ADCB89244}Sounds/VON/von_RangeThree.acp"
+  }
+  CVVR_VoNComponentRangeTwo "{616B59E3AE36FC3D}" {
+   "Speaking Range" 7
+   Filename "{60472E79D4CBA11E}Sounds/VON/von_RangeTwo.acp"
   }
   SCR_VoNComponent "{520EA1D2F659C856}" {
    Enabled 0

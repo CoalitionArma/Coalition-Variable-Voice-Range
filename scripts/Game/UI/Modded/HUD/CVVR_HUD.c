@@ -1,9 +1,10 @@
+
 class CVVR_HUD: SCR_InfoDisplay {
-	protected CVVR_VoNMasterComponent m_VoNMasterComponent;
+	protected CVVR_ClientComponent m_ClientComponent;
 	protected ProgressBarWidget m_wVoiceRangeSlider;
 	protected TextWidget m_wVoiceRangeText;
 	protected InputManager m_InputManager;
-	protected IEntity m_Owner;
+	protected int m_iPlayerID;
 
 	//------------------------------------------------------------------------------------------------
 
@@ -14,7 +15,6 @@ class CVVR_HUD: SCR_InfoDisplay {
 	override event void OnStartDraw(IEntity owner)
 	{
 		super.OnStartDraw(owner);
-		m_Owner = owner;
 		GetGame().GetInputManager().AddActionListener("CVVR_ShowVoiceRangeSlider", EActionTrigger.PRESSED, ShowVoiceRangeSlider);
 		GetGame().GetInputManager().AddActionListener("CVVR_ShowVoiceRangeSlider", EActionTrigger.UP, HideVoiceRangeSlider);
 	}
@@ -35,13 +35,14 @@ class CVVR_HUD: SCR_InfoDisplay {
 	
 	protected void ShowVoiceRangeSlider()
 	{
-		if (!m_InputManager || !m_wVoiceRangeSlider) 
+		if (!m_InputManager || !m_wVoiceRangeSlider || !m_wVoiceRangeText) 
 		{
 			m_InputManager = GetGame().GetInputManager();
 			m_wVoiceRangeSlider = ProgressBarWidget.Cast(m_wRoot.FindWidget("VoiceRangeSlider"));
 			m_wVoiceRangeText = TextWidget.Cast(m_wRoot.FindWidget("VoiceRangeText"));
-			m_VoNMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(m_Owner).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
 		};
+		
+		CVVR_ClientComponent clientComponent = CVVR_ClientComponent.GetInstance();
 		
 		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
 		float currentTextOpacity = m_wVoiceRangeText.GetOpacity();
@@ -54,13 +55,13 @@ class CVVR_HUD: SCR_InfoDisplay {
 		int actionValue = m_InputManager.GetActionValue("CVVR_VoiceRangeAnalog");
 		
 		if (actionValue != 0) {
-			m_VoNMasterComponent.SetLocalVoiceRange(actionValue);
+			clientComponent.ChangeVoiceRange(actionValue);
 		};
 		
-		m_wVoiceRangeSlider.SetCurrent(m_VoNMasterComponent.GetLocalVoiceRange());
+		m_wVoiceRangeSlider.SetCurrent(clientComponent.ReturnLocalVoiceRange());
 		
 		// Color
-		switch (m_VoNMasterComponent.GetLocalVoiceRange())
+		switch (clientComponent.ReturnLocalVoiceRange())
 		{
 			case 1: 
 			{ 

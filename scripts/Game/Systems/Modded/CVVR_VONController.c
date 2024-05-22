@@ -6,9 +6,11 @@ modded class SCR_VONController : ScriptComponent
 	protected CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
 	protected CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
 	protected CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
-	protected CVVR_VoNMasterComponent m_VoNMasterComponent; 
+	protected CVVR_AuthorityComponent m_AuthorityComponent;
+	protected int m_iPlayerID;
 	
-	void ReloadVONForRangeChange() {
+	void ReloadVONForRangeChange() 
+	{
 		if (m_bIsToggledDirect) {
 			DeactivateVON(EVONTransmitType.DIRECT);
 			OnVONToggle(0,0);
@@ -32,7 +34,8 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(to.FindComponent(CVVR_VoNComponentRangeThree));    
 		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(to.FindComponent(CVVR_VoNComponentRangeFour));    
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(to.FindComponent(CVVR_VoNComponentRangeFive));    
-		m_VoNMasterComponent     = CVVR_VoNMasterComponent.Cast(to.FindComponent(CVVR_VoNMasterComponent));
+		m_AuthorityComponent     = CVVR_AuthorityComponent.GetInstance();
+		m_iPlayerID              = GetGame().GetPlayerController().GetPlayerId();
 		
 		m_sLocalEncryptionKey = string.Empty;	
 		
@@ -81,9 +84,10 @@ modded class SCR_VONController : ScriptComponent
 	override bool AssignVONComponent()
 	{
 		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
-		m_VoNMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(GetOwner()).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
+		m_AuthorityComponent = CVVR_AuthorityComponent.GetInstance();
+		m_iPlayerID = GetGame().GetPlayerController().GetPlayerId();
 		
-		if(!m_VoNMasterComponent || !ent)
+		if(!m_AuthorityComponent || !ent)
 			return false;
 		
 		m_VoNComponentRangeOne   = CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne));    
@@ -119,16 +123,15 @@ modded class SCR_VONController : ScriptComponent
 		SetActiveTransmit(entry);
 		
 		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
-		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(ent.FindComponent(CVVR_VoNMasterComponent));
 		
-		if (vonMasterComponent) {	
-			switch (vonMasterComponent.GetLocalVoiceRange()) {
+		if (m_AuthorityComponent && ent) {	
+			switch (m_AuthorityComponent.ReturnPlayerRange(m_iPlayerID)) {
 				case 1  : {m_VoNComponentRangeOne.SetCapture(true);   break;};
 				case 2  : {m_VoNComponentRangeTwo.SetCapture(true);   break;};
 				case 3  : {m_VoNComponentRangeThree.SetCapture(true); break;};
 				case 4  : {m_VoNComponentRangeFour.SetCapture(true);  break;};
 				case 5  : {m_VoNComponentRangeFive.SetCapture(true);  break;};
-				default : {m_VoNComponentRangeThree.SetCapture(true);};
+				default : {m_VoNComponentRangeThree.SetCapture(true);       };
 			};
 			m_bIsActive = true;
 		};
@@ -165,10 +168,9 @@ modded class SCR_VONController : ScriptComponent
 	override protected void SetActiveTransmit(notnull SCR_VONEntry entry)
 	{		
 		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
-		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(ent.FindComponent(CVVR_VoNMasterComponent));
 		
-		if (vonMasterComponent) {	
-			switch (vonMasterComponent.GetLocalVoiceRange()) {
+		if (m_AuthorityComponent && ent) {	
+			switch (m_AuthorityComponent.ReturnPlayerRange(m_iPlayerID)) {
 				case 1 : {
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
 					{
