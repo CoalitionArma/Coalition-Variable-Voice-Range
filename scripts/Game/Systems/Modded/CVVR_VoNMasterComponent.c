@@ -5,7 +5,6 @@ class CVVR_VoNMasterComponent: ScriptComponent {
 	
 	protected SCR_VONController m_VONController;
 	
-	[RplProp()]
 	protected int m_iLocalVoiceRange = 3; // 1-5 now
 	
 	int GetLocalVoiceRange() {
@@ -17,10 +16,6 @@ class CVVR_VoNMasterComponent: ScriptComponent {
 		
 		if (voiceRangeSum >= 1 && voiceRangeSum <= 5) {
 			m_iLocalVoiceRange = voiceRangeSum;
-			
-			Print(m_iLocalVoiceRange);
-			
-			Replication.BumpMe();
 		
 			m_VONController = SCR_VONController.Cast(GetGame().GetPlayerController().FindComponent(SCR_VONController));
 		
@@ -54,8 +49,3 @@ class CVVR_VoNComponentRangeFour: SCR_VoNComponent {};
 class CVVR_VoNComponentRangeFiveClass: SCR_VoNComponentClass {};
 
 class CVVR_VoNComponentRangeFive: SCR_VoNComponent {};
-
-/*[ComponentEditorProps(category: "GameComponent", description: "CVVR Range Component", color: "0 0 255 255")]
-class CVVR_VoNComponentRangeSixClass: SCR_VoNComponentClass {};
-
-class CVVR_VoNComponentRangeSix: SCR_VoNComponent {};*/

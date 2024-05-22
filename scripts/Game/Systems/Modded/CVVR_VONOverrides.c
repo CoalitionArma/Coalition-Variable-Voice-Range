@@ -28,17 +28,16 @@ modded class SCR_NameTagData : Managed
 			
 			if (m_bIsCurrentPlayer)		// we only need VON received event for current player to set VON status icons
 			{
-				CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(ent.FindComponent(CVVR_VoNMasterComponent));
+				CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(entity.FindComponent(CVVR_VoNMasterComponent));
 			
 				if (vonMasterComponent) {	
 					switch (vonMasterComponent.GetLocalVoiceRange()) {
-						case 1  : {CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
-						case 2  : {CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
-						case 3  : {CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree)).m_OnReceivedVON.Insert(OnReceivedVON); break;};
-						case 4  : {CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);  break;}
-						case 5  : {CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive)).m_OnReceivedVON.Insert(OnReceivedVON);   break;};
-						//case 6  : {CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
-						default : {CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON); };
+						case 1  : {CVVR_VoNComponentRangeOne.Cast(entity.FindComponent(CVVR_VoNComponentRangeOne)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
+						case 2  : {CVVR_VoNComponentRangeTwo.Cast(entity.FindComponent(CVVR_VoNComponentRangeTwo)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
+						case 3  : {CVVR_VoNComponentRangeThree.Cast(entity.FindComponent(CVVR_VoNComponentRangeThree)).m_OnReceivedVON.Insert(OnReceivedVON); break;};
+						case 4  : {CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);   break;};
+						case 5  : {CVVR_VoNComponentRangeFive.Cast(entity.FindComponent(CVVR_VoNComponentRangeFive)).m_OnReceivedVON.Insert(OnReceivedVON);   break;};
+						default : {CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);         };
 					};
 				};
 			}
@@ -69,10 +68,9 @@ modded class SCR_NameTagData : Managed
 					case 1  : {CVVR_VoNComponentRangeOne.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeOne)).m_OnReceivedVON.Remove(OnReceivedVON);     break;};
 					case 2  : {CVVR_VoNComponentRangeTwo.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeTwo)).m_OnReceivedVON.Remove(OnReceivedVON);     break;};
 					case 3  : {CVVR_VoNComponentRangeThree.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeThree)).m_OnReceivedVON.Remove(OnReceivedVON); break;};
-					case 4  : {CVVR_VoNComponentRangeFour.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);  	break;}
+					case 4  : {CVVR_VoNComponentRangeFour.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);  	break;};
 					case 5  : {CVVR_VoNComponentRangeFive.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeFive)).m_OnReceivedVON.Remove(OnReceivedVON);   break;};
-					//case 6  : {CVVR_VoNComponentRangeSix.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeSix)).m_OnReceivedVON.Remove(OnReceivedVON);     break;};
-					default : {CVVR_VoNComponentRangeFour.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Remove(OnReceivedVON); };
+					default : {CVVR_VoNComponentRangeFour.Cast(m_Entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Remove(OnReceivedVON);         };
 				};
 			};
 		}
@@ -314,17 +312,16 @@ modded class SCR_AvailableActionsConditionData
 			m_bCharacterRadiosCount = m_VONController.GetVONEntryCount();
 
 		// VON usage
-		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(character.FindComponent(CVVR_VoNMasterComponent));
+		CVVR_VoNMasterComponent vonMasterComponent = CVVR_VoNMasterComponent.Cast(controlledEntity.FindComponent(CVVR_VoNMasterComponent));
 			
 		if (vonMasterComponent) {	
 			switch (vonMasterComponent.GetLocalVoiceRange()) {
-				case 1  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeOne.Cast(character.FindComponent(CVVR_VoNComponentRangeOne)).IsTransmitingRadio();     break;};
-				case 2  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeTwo.Cast(character.FindComponent(CVVR_VoNComponentRangeTwo)).IsTransmitingRadio();     break;};
-				case 3  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeThree.Cast(character.FindComponent(CVVR_VoNComponentRangeThree)).IsTransmitingRadio(); break;};
-				case 4  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFour.Cast(character.FindComponent(CVVR_VoNComponentRangeFour)).IsTransmitingRadio(); 	break;};
-				case 5  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFive.Cast(character.FindComponent(CVVR_VoNComponentRangeFive)).IsTransmitingRadio();   break;};
-				//case 6  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeSix.Cast(character.FindComponent(CVVR_VoNComponentRangeSix)).IsTransmitingRadio();     break;};
-				default : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFour.Cast(character.FindComponent(CVVR_VoNComponentRangeFour)).IsTransmitingRadio()};
+				case 1  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeOne.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeOne)).IsTransmitingRadio();     break;};
+				case 2  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeTwo.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeTwo)).IsTransmitingRadio();     break;};
+				case 3  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeThree.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeThree)).IsTransmitingRadio(); break;};
+				case 4  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFour.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeFour)).IsTransmitingRadio();   break;};
+				case 5  : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFive.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeFive)).IsTransmitingRadio();   break;};
+				default : {m_bCharacterIsUsingRadio = CVVR_VoNComponentRangeFour.Cast(controlledEntity.FindComponent(CVVR_VoNComponentRangeFour)).IsTransmitingRadio()          };
 			};
 			
 			if (m_bCharacterIsUsingRadio)

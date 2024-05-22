@@ -6,12 +6,17 @@ modded class SCR_VONController : ScriptComponent
 	protected CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
 	protected CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
 	protected CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
-	//protected CVVR_VoNComponentRangeSix m_VoNComponentRangeSix;
 	protected CVVR_VoNMasterComponent m_VoNMasterComponent; 
 	
 	void ReloadVONForRangeChange() {
-		DeactivateVON(EVONTransmitType.DIRECT);
-		OnVONToggle(0,0);
+		if (m_bIsToggledDirect) {
+			DeactivateVON(EVONTransmitType.DIRECT);
+			OnVONToggle(0,0);
+			OnVONToggle(1,0);
+		} else {
+			DeactivateVON(EVONTransmitType.DIRECT);
+			OnVONToggle(0,0);
+		};
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -27,7 +32,6 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(to.FindComponent(CVVR_VoNComponentRangeThree));    
 		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(to.FindComponent(CVVR_VoNComponentRangeFour));    
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(to.FindComponent(CVVR_VoNComponentRangeFive));    
-		//m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(to.FindComponent(CVVR_VoNComponentRangeSix));
 		m_VoNMasterComponent     = CVVR_VoNMasterComponent.Cast(to.FindComponent(CVVR_VoNMasterComponent));
 		
 		m_sLocalEncryptionKey = string.Empty;	
@@ -87,7 +91,6 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree));    
 		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour));    
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));    
-		//m_VoNComponentRangeSix   = CVVR_VoNComponentRangeSix.Cast(ent.FindComponent(CVVR_VoNComponentRangeSix));
 		
 		return true;
 	}
@@ -148,7 +151,6 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeThree.SetCapture(false); 
 		m_VoNComponentRangeFour.SetCapture(false);   
 		m_VoNComponentRangeFive.SetCapture(false);     
-		//m_VoNComponentRangeSix.SetCapture(false);
 		
 		m_sActiveHoldAction = string.Empty;
 					
@@ -241,21 +243,6 @@ modded class SCR_VONController : ScriptComponent
 					}	
 					break;
 				};
-				//------------------------------------------------------------------------------------------------
-				/*case 6 : {
-					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)
-					{
-						m_VoNComponentRangeSix.SetCommMethod(ECommMethod.SQUAD_RADIO);
-						m_VoNComponentRangeSix.SetTransmitRadio(SCR_VONEntryRadio.Cast(entry).GetTransceiver());
-						SetEntryActive(entry);
-					}
-					else 
-					{
-						m_VoNComponentRangeSix.SetCommMethod(ECommMethod.DIRECT);
-						m_VoNComponentRangeSix.SetTransmitRadio(null);
-					}	
-					break;
-				};*/
 				//------------------------------------------------------------------------------------------------
 				default : {
 					if (entry.GetVONMethod() == ECommMethod.SQUAD_RADIO)

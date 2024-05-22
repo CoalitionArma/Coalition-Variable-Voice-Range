@@ -41,7 +41,6 @@ class CVVR_HUD: SCR_InfoDisplay {
 			m_wVoiceRangeSlider = ProgressBarWidget.Cast(m_wRoot.FindWidget("VoiceRangeSlider"));
 			m_wVoiceRangeText = TextWidget.Cast(m_wRoot.FindWidget("VoiceRangeText"));
 			m_VoNMasterComponent = CVVR_VoNMasterComponent.Cast(SCR_PlayerController.Cast(m_Owner).GetControlledEntity().FindComponent(CVVR_VoNMasterComponent));
-			return;
 		};
 		
 		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
@@ -54,7 +53,7 @@ class CVVR_HUD: SCR_InfoDisplay {
 		
 		int actionValue = m_InputManager.GetActionValue("CVVR_VoiceRangeAnalog");
 		
-		if (actionValue == -1 || actionValue == 1) {
+		if (actionValue != 0) {
 			m_VoNMasterComponent.SetLocalVoiceRange(actionValue);
 		};
 		
