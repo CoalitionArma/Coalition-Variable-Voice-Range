@@ -96,6 +96,8 @@ class CVVR_VoNComponentRangeFour: SCR_VoNComponent {
 class CVVR_VoNComponentRangeFiveClass: SCR_VoNComponentClass {};
 
 class CVVR_VoNComponentRangeFive: SCR_VoNComponent {
+	private SCR_VONController m_VONController;
+	
 	override protected event void OnReceive(int playerId, BaseTransceiver receiver, int frequency, float quality)
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
@@ -105,5 +107,11 @@ class CVVR_VoNComponentRangeFive: SCR_VoNComponent {
 		Print(voiceRange);
 		
 		Print("Range Five");
+		
+		//PlayerController playerController = GetGame().GetPlayerManager().GetPlayerController(playerId);
+		//m_VONController = SCR_VONController.Cast(playerController.FindComponent(SCR_VONController));
+		//m_VONController.AssignVONComponentByEntity(playerEntity);
+		
+		//Print(m_VONController.m_VoNComponentRangeOne)
 	}
 };

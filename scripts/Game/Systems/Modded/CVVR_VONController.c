@@ -1,12 +1,12 @@
 
 modded class SCR_VONController : ScriptComponent
 {
-	protected CVVR_VoNComponentRangeOne m_VoNComponentRangeOne;    
-	protected CVVR_VoNComponentRangeTwo m_VoNComponentRangeTwo;    
-	protected CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
-	protected CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
-	protected CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
-	protected CVVR_AuthorityComponent m_AuthorityComponent;
+	CVVR_VoNComponentRangeOne m_VoNComponentRangeOne;    
+	CVVR_VoNComponentRangeTwo m_VoNComponentRangeTwo;    
+	CVVR_VoNComponentRangeThree m_VoNComponentRangeThree;    
+	CVVR_VoNComponentRangeFour m_VoNComponentRangeFour;    
+	CVVR_VoNComponentRangeFive m_VoNComponentRangeFive;    
+	CVVR_AuthorityComponent m_AuthorityComponent;
 	protected int m_iPlayerID;
 	
 	void ReloadVONForRangeChange() 
@@ -97,6 +97,15 @@ modded class SCR_VONController : ScriptComponent
 		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));    
 		
 		return true;
+	}
+	
+	void AssignVONComponentByEntity(IEntity ent)
+	{
+		m_VoNComponentRangeOne   = CVVR_VoNComponentRangeOne.Cast(ent.FindComponent(CVVR_VoNComponentRangeOne));    
+		m_VoNComponentRangeTwo   = CVVR_VoNComponentRangeTwo.Cast(ent.FindComponent(CVVR_VoNComponentRangeTwo));    
+		m_VoNComponentRangeThree = CVVR_VoNComponentRangeThree.Cast(ent.FindComponent(CVVR_VoNComponentRangeThree));    
+		m_VoNComponentRangeFour  = CVVR_VoNComponentRangeFour.Cast(ent.FindComponent(CVVR_VoNComponentRangeFour));    
+		m_VoNComponentRangeFive  = CVVR_VoNComponentRangeFive.Cast(ent.FindComponent(CVVR_VoNComponentRangeFive));
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -262,7 +271,7 @@ modded class SCR_VONController : ScriptComponent
 				};
 			};
 		};
-		
+
 		if (entry == m_SavedEntry)
 			m_SavedEntry = null;
 	}

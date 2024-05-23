@@ -6,19 +6,19 @@ SCR_ChimeraCharacter {
    Filename "{BE4178DDA592237A}Sounds/VON/von_RangeFive.acp"
   }
   CVVR_VoNComponentRangeFour "{616B59E3A0218C14}" {
-   "Speaking Range" 20
+   "Speaking Range" 24
    Filename "{0CA0C7A2AEEAB0D2}Sounds/VON/von_RangeFour.acp"
   }
   CVVR_VoNComponentRangeOne "{616B59E3A64F9CDE}" {
-   "Speaking Range" 3
+   "Speaking Range" 2
    Filename "{28368561C655455E}Sounds/VON/von_RangeOne.acp"
   }
   CVVR_VoNComponentRangeThree "{616B59E3AC5C47CB}" {
-   "Speaking Range" 12
+   "Speaking Range" 16
    Filename "{7CEB1F6ADCB89244}Sounds/VON/von_RangeThree.acp"
   }
   CVVR_VoNComponentRangeTwo "{616B59E3AE36FC3D}" {
-   "Speaking Range" 7
+   "Speaking Range" 6
    Filename "{60472E79D4CBA11E}Sounds/VON/von_RangeTwo.acp"
   }
   SCR_VoNComponent "{520EA1D2F659C856}" {

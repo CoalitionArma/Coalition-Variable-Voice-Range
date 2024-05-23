@@ -28,18 +28,12 @@ modded class SCR_NameTagData : Managed
 			
 			if (m_bIsCurrentPlayer)		// we only need VON received event for current player to set VON status icons
 			{
-				CVVR_AuthorityComponent authorityComponent = CVVR_AuthorityComponent.GetInstance();
-			
-				if (authorityComponent) {	
-					switch (authorityComponent.ReturnPlayerRange(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(entity))) {
-						case 1  : {CVVR_VoNComponentRangeOne.Cast(entity.FindComponent(CVVR_VoNComponentRangeOne)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
-						case 2  : {CVVR_VoNComponentRangeTwo.Cast(entity.FindComponent(CVVR_VoNComponentRangeTwo)).m_OnReceivedVON.Insert(OnReceivedVON);     break;};
-						case 3  : {CVVR_VoNComponentRangeThree.Cast(entity.FindComponent(CVVR_VoNComponentRangeThree)).m_OnReceivedVON.Insert(OnReceivedVON); break;};
-						case 4  : {CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);   break;};
-						case 5  : {CVVR_VoNComponentRangeFive.Cast(entity.FindComponent(CVVR_VoNComponentRangeFive)).m_OnReceivedVON.Insert(OnReceivedVON);   break;};
-						default : {CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);         };
-					};
-				};
+				CVVR_VoNComponentRangeOne.Cast(entity.FindComponent(CVVR_VoNComponentRangeOne)).m_OnReceivedVON.Insert(OnReceivedVON);
+				CVVR_VoNComponentRangeTwo.Cast(entity.FindComponent(CVVR_VoNComponentRangeTwo)).m_OnReceivedVON.Insert(OnReceivedVON);
+				CVVR_VoNComponentRangeThree.Cast(entity.FindComponent(CVVR_VoNComponentRangeThree)).m_OnReceivedVON.Insert(OnReceivedVON);
+				CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);
+				CVVR_VoNComponentRangeFive.Cast(entity.FindComponent(CVVR_VoNComponentRangeFive)).m_OnReceivedVON.Insert(OnReceivedVON);
+				CVVR_VoNComponentRangeFour.Cast(entity.FindComponent(CVVR_VoNComponentRangeFour)).m_OnReceivedVON.Insert(OnReceivedVON);
 			}
 		}
 			

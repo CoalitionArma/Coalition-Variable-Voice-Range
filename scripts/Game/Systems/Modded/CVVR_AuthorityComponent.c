@@ -57,12 +57,6 @@ class CVVR_AuthorityComponent : SCR_BaseGameModeComponent
 			array<string> playerKeyAndValueArray = {};
 			playerKeyAndValueToSplit.Split("╪", playerKeyAndValueArray, false);
 			m_mPlayerRangeMap.Set(playerKeyAndValueArray[0].ToInt(), playerKeyAndValueArray[1].ToInt());
-			
-			//debugging
-			Print("----------------------");
-			PrintFormat("Player ID: %1", playerKeyAndValueArray[0]);
-			PrintFormat("Voice Range: %1", playerKeyAndValueArray[1]);
-			Print("----------------------");
 		};
 	}
 

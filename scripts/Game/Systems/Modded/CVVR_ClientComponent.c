@@ -26,7 +26,9 @@ class CVVR_ClientComponent : ScriptComponent
 	{
 		super.OnPostInit(owner);
 		m_AuthorityComponent = CVVR_AuthorityComponent.GetInstance();
-		ChangeVoiceRange(0);
+		
+		if (Replication.IsClient())
+			GetGame().GetCallqueue().CallLater(WaitUntilPlayerIDValid, 250, true);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -39,7 +41,13 @@ class CVVR_ClientComponent : ScriptComponent
 	{
 		return m_iLocalVoiceRange;
 	}
-
+	
+	protected void WaitUntilPlayerIDValid() {
+		if (GetGame().GetPlayerController().GetPlayerId() != 0) {
+			Rpc(RpcAsk_UpdatePlayerArray, GetGame().GetPlayerController().GetPlayerId(), m_iLocalVoiceRange);
+			GetGame().GetCallqueue().Remove(WaitUntilPlayerIDValid);
+		};
+	}
 
 	void ChangeVoiceRange(int voiceRangeChange) 
 	{
@@ -48,12 +56,13 @@ class CVVR_ClientComponent : ScriptComponent
 		if (voiceRangeSum >= 1 && voiceRangeSum <= 5 && m_iLocalVoiceRange != voiceRangeSum) {
 			m_iLocalVoiceRange = voiceRangeSum;
 			
-			Rpc(RpcAsk_UpdatePlayerArray, GetGame().GetPlayerController().GetPlayerId(), m_iLocalVoiceRange); // Tell all clients that this client has changed their voice range
+			Rpc(RpcAsk_UpdatePlayerArray, GetGame().GetPlayerController().GetPlayerId(), m_iLocalVoiceRange); // Tell all clients that this client has changed their voice range.
 		
 			m_VONController = SCR_VONController.Cast(GetGame().GetPlayerController().FindComponent(SCR_VONController));
 		
 			if(m_VONController)
-				GetGame().GetCallqueue().CallLater(m_VONController.ReloadVONForRangeChange, 350, false); //Need to give the server time to propigate the change
+				m_VONController.ReloadVONForRangeChange();
+				GetGame().GetCallqueue().CallLater(m_VONController.ReloadVONForRangeChange, 385, false); //Just in case we need to give the server time to propigate the change.
 		};
 	}
 

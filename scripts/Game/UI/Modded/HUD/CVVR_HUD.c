@@ -4,7 +4,6 @@ class CVVR_HUD: SCR_InfoDisplay {
 	protected ProgressBarWidget m_wVoiceRangeSlider;
 	protected TextWidget m_wVoiceRangeText;
 	protected InputManager m_InputManager;
-	protected int m_iPlayerID;
 
 	//------------------------------------------------------------------------------------------------
 
@@ -24,7 +23,7 @@ class CVVR_HUD: SCR_InfoDisplay {
 	{
 		super.OnStopDraw(owner);
 		GetGame().GetInputManager().RemoveActionListener("CVVR_ShowVoiceRangeSlider", EActionTrigger.PRESSED, ShowVoiceRangeSlider);
-		GetGame().GetInputManager().AddActionListener("CVVR_ShowVoiceRangeSlider", EActionTrigger.UP, HideVoiceRangeSlider);
+		GetGame().GetInputManager().RemoveActionListener("CVVR_ShowVoiceRangeSlider", EActionTrigger.UP, HideVoiceRangeSlider);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -42,7 +41,7 @@ class CVVR_HUD: SCR_InfoDisplay {
 			m_wVoiceRangeText = TextWidget.Cast(m_wRoot.FindWidget("VoiceRangeText"));
 		};
 		
-		CVVR_ClientComponent clientComponent = CVVR_ClientComponent.GetInstance();
+		m_ClientComponent = CVVR_ClientComponent.GetInstance();
 		
 		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
 		float currentTextOpacity = m_wVoiceRangeText.GetOpacity();
@@ -52,16 +51,17 @@ class CVVR_HUD: SCR_InfoDisplay {
 			m_wVoiceRangeText.SetOpacity(currentTextOpacity + 0.025);
 		};
 		
-		int actionValue = m_InputManager.GetActionValue("CVVR_VoiceRangeAnalog");
+		int actionValueUp = m_InputManager.GetActionValue("CVVR_VoiceRangeUp");
+		int actionValueDown = m_InputManager.GetActionValue("CVVR_VoiceRangeDown");
 		
-		if (actionValue != 0) {
-			clientComponent.ChangeVoiceRange(actionValue);
+		if (actionValueUp != 0 || actionValueDown != 0) {
+			m_ClientComponent.ChangeVoiceRange(actionValueUp + actionValueDown);
 		};
 		
-		m_wVoiceRangeSlider.SetCurrent(clientComponent.ReturnLocalVoiceRange());
+		m_wVoiceRangeSlider.SetCurrent(m_ClientComponent.ReturnLocalVoiceRange());
 		
 		// Color
-		switch (clientComponent.ReturnLocalVoiceRange())
+		switch (m_ClientComponent.ReturnLocalVoiceRange())
 		{
 			case 1: 
 			{ 
