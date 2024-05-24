@@ -12,10 +12,6 @@ class CVVR_VoNComponentRangeOne: SCR_VoNComponent {
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
 		
-		//IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
-		int voiceRange = CVVR_AuthorityComponent.GetInstance().ReturnPlayerRange(playerId);
-		Print(voiceRange);
-		
 		Print("Range One");
 	}
 };
@@ -34,10 +30,6 @@ class CVVR_VoNComponentRangeTwo: SCR_VoNComponent {
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
 		
-		//IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
-		int voiceRange = CVVR_AuthorityComponent.GetInstance().ReturnPlayerRange(playerId);
-		Print(voiceRange);
-		
 		Print("Range Two");
 	}
 };
@@ -55,10 +47,6 @@ class CVVR_VoNComponentRangeThree: SCR_VoNComponent {
 	override protected event void OnReceive(int playerId, BaseTransceiver receiver, int frequency, float quality)
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
-				
-		//IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
-		int voiceRange = CVVR_AuthorityComponent.GetInstance().ReturnPlayerRange(playerId);
-		Print(voiceRange);
 		
 		Print("Range Three");
 	}
@@ -77,10 +65,6 @@ class CVVR_VoNComponentRangeFour: SCR_VoNComponent {
 	override protected event void OnReceive(int playerId, BaseTransceiver receiver, int frequency, float quality)
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
-				
-		//IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
-		int voiceRange = CVVR_AuthorityComponent.GetInstance().ReturnPlayerRange(playerId);
-		Print(voiceRange);
 		
 		Print("Range Four");
 	}
@@ -98,20 +82,15 @@ class CVVR_VoNComponentRangeFiveClass: SCR_VoNComponentClass {};
 class CVVR_VoNComponentRangeFive: SCR_VoNComponent {
 	private SCR_VONController m_VONController;
 	
+	override event protected void OnCapture(BaseTransceiver transmitter) {
+		super.OnCapture(transmitter);
+		Print("test");
+	}
+	
 	override protected event void OnReceive(int playerId, BaseTransceiver receiver, int frequency, float quality)
 	{
 		super.OnReceive(playerId, receiver, frequency, quality);
-				
-		//IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
-		int voiceRange = CVVR_AuthorityComponent.GetInstance().ReturnPlayerRange(playerId);
-		Print(voiceRange);
 		
 		Print("Range Five");
-		
-		//PlayerController playerController = GetGame().GetPlayerManager().GetPlayerController(playerId);
-		//m_VONController = SCR_VONController.Cast(playerController.FindComponent(SCR_VONController));
-		//m_VONController.AssignVONComponentByEntity(playerEntity);
-		
-		//Print(m_VONController.m_VoNComponentRangeOne)
 	}
 };

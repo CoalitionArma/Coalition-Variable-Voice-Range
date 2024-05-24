@@ -9,16 +9,42 @@ modded class SCR_VONController : ScriptComponent
 	CVVR_AuthorityComponent m_AuthorityComponent;
 	protected int m_iPlayerID;
 	
+	
+	override protected void Init(IEntity owner)
+	{	
+		super.Init(owner);
+		//Print(owner);
+	};
+	
+	
 	void ReloadVONForRangeChange() 
 	{
 		if (m_bIsToggledDirect) {
-			DeactivateVON(EVONTransmitType.DIRECT);
 			OnVONToggle(0,0);
 			OnVONToggle(1,0);
 		} else {
-			DeactivateVON(EVONTransmitType.DIRECT);
 			OnVONToggle(0,0);
 		};
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! Get active VON component for transmit
+	override SCR_VoNComponent GetVONComponent()
+	{ 
+		SCR_VoNComponent vonComp;
+		IEntity ent = SCR_PlayerController.Cast(GetOwner()).GetControlledEntity();
+		
+		if (m_AuthorityComponent && ent) {	
+			switch (m_AuthorityComponent.ReturnPlayerRange(m_iPlayerID)) {
+				case 1  : {vonComp = m_VoNComponentRangeOne;   break;};
+				case 2  : {vonComp = m_VoNComponentRangeTwo;   break;};
+				case 3  : {vonComp = m_VoNComponentRangeThree; break;};
+				case 4  : {vonComp = m_VoNComponentRangeFour;  break;};
+				case 5  : {vonComp = m_VoNComponentRangeFive;  break;};
+				default : {vonComp = m_VoNComponentRangeThree;       };
+			};
+		};
+		return vonComp; 
 	}
 	
 	//------------------------------------------------------------------------------------------------
