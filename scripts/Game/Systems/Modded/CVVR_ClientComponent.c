@@ -1,4 +1,4 @@
-[ComponentEditorProps(category: "GameScripted/UI", description: "CSI Player Component for RPC", color: "0 0 255 255")]
+[ComponentEditorProps(category: "GameScripted/UI", description: "CVVR Player Component for RPC", color: "0 0 255 255")]
 class CVVR_ClientComponentClass : ScriptComponentClass {};
 
 class CVVR_ClientComponent : ScriptComponent
@@ -57,12 +57,14 @@ class CVVR_ClientComponent : ScriptComponent
 			m_iLocalVoiceRange = voiceRangeSum;
 			
 			Rpc(RpcAsk_UpdatePlayerArray, GetGame().GetPlayerController().GetPlayerId(), m_iLocalVoiceRange); // Tell all clients that this client has changed their voice range.
-		
+			
+			/*
 			m_VONController = SCR_VONController.Cast(GetGame().GetPlayerController().FindComponent(SCR_VONController));
 		
 			if(m_VONController)
 				m_VONController.ReloadVONForRangeChange();
 				GetGame().GetCallqueue().CallLater(m_VONController.ReloadVONForRangeChange, 385, false); //Just in case we need to give the server time to propigate the change.
+			*/
 		};
 	}
 

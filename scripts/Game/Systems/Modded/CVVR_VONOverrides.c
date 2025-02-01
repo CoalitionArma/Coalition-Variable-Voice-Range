@@ -3,7 +3,7 @@
 //SCR_NameTagData
 
 //------------------------------------------------------------------------------------------------
-
+/*
 modded class SCR_NameTagData : Managed
 {	
 	//------------------------------------------------------------------------------------------------
@@ -99,6 +99,7 @@ modded class SCR_AvailableActionsConditionData
 			{
 				m_CharacterController = character.GetCharacterController();
 				m_GadgetManager = SCR_GadgetManagerComponent.GetGadgetManager(character);
+				m_VON = SCR_VoNComponent.Cast(character.FindComponent(SCR_VoNComponent));
 			}
 		}
 
@@ -106,6 +107,7 @@ modded class SCR_AvailableActionsConditionData
 		{
 			m_CharacterController = null;
 			m_GadgetManager = null;
+			m_VON = null;
 
 			m_bIsValid = false;
 			return;
@@ -145,6 +147,12 @@ modded class SCR_AvailableActionsConditionData
 
 		// Current character stance
 		m_eCharacterStance = m_CharacterController.GetStance();
+		// Is character freelooking?
+		m_bIsCharacterFreelook = m_CharacterController.IsFreeLookEnabled();
+		// Is character forced to freelook?
+		m_bIsCharacterFreelookForced = m_CharacterController.IsFreeLookForced() || m_CharacterController.IsFreeLookEnforced();
+		// Is character having freelook toggled?
+		m_bIsCharacterFreelookToggled = m_CharacterController.GetFreeLookInput() && !GetGame().GetInputManager().GetActionValue("Freelook") >= 0.5;
 		// Is character ADS?
 		m_bIsCharacterADS = m_CharacterController.IsWeaponADS();
 		// Is character sprinting?
@@ -185,6 +193,9 @@ modded class SCR_AvailableActionsConditionData
 			BaseCompartmentSlot slot = compartmentAccess.GetCompartment();
 			if (slot)
 			{
+				// Is character forced to freelook by compartment?
+				m_bIsCharacterFreelookForced = m_bIsCharacterFreelookForced || slot.GetForceFreeLook();
+
 				// Vehicle
 				IEntity vehicle = slot.GetOwner();
 				
@@ -204,7 +215,7 @@ modded class SCR_AvailableActionsConditionData
 				// Temporary turbo time tracking
 				// TODO: Condition activation time
 				m_eCompartmentType = slot.GetType();
-				if (m_eCompartmentType == ECompartmentType.Pilot && GetGame().GetInputManager().GetActionTriggered("CarTurbo"))
+				if (m_eCompartmentType == ECompartmentType.PILOT && GetGame().GetInputManager().GetActionTriggered("CarTurbo"))
 					m_fTurboTime += timeSlice;
 				else
 					m_fTurboTime = 0;
@@ -275,10 +286,12 @@ modded class SCR_AvailableActionsConditionData
 			{
 				m_iMedicalItemCountInQuickSlots = 0;
 
-				array<IEntity> items = characterStorage.GetQuickSlotItems();
-				foreach (IEntity item : items)
+				array<ref SCR_QuickslotBaseContainer> items = characterStorage.GetQuickSlotItems();
+				SCR_QuickslotEntityContainer entityContainer;
+				foreach (SCR_QuickslotBaseContainer container : items)
 				{
-					if (item && item.FindComponent(SCR_ConsumableItemComponent))
+					entityContainer = SCR_QuickslotEntityContainer.Cast(container);
+					if (entityContainer && entityContainer.GetEntity()  && entityContainer.GetEntity().FindComponent(SCR_ConsumableItemComponent))
 						m_iMedicalItemCountInQuickSlots++;
 				}
 			}

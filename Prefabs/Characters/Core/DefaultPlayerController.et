@@ -1,14 +1,3 @@
 SCR_PlayerController {
  ID "1A9BA6BEFA06E3B1"
- components {
-  CVVR_ClientComponent "{616B59E39BC1DC93}" {
-  }
-  SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
-   InfoDisplays {
-    CVVR_HUD "{616A49DE206B7674}" {
-     m_LayoutPath "{353B96F079BBCC76}UI/layouts/HUD/Modded/CVVR_HUD.layout"
-    }
-   }
-  }
- }
 }
