@@ -1,6 +1,7 @@
 
 class CVVR_HUD: SCR_InfoDisplay {
-	protected CVVR_ClientComponent m_ClientComponent;
+	protected CVVR_VoNSoundComponent m_VoNComponent;
+	protected SCR_PlayerController m_PlayerController;
 	protected ProgressBarWidget m_wVoiceRangeSlider;
 	protected TextWidget m_wVoiceRangeText;
 	protected InputManager m_InputManager;
@@ -41,7 +42,8 @@ class CVVR_HUD: SCR_InfoDisplay {
 			m_wVoiceRangeText = TextWidget.Cast(m_wRoot.FindWidget("VoiceRangeText"));
 		};
 		
-		m_ClientComponent = CVVR_ClientComponent.GetInstance();
+		m_VoNComponent = CVVR_VoNSoundComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(CVVR_VoNSoundComponent));
+		m_PlayerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
 		
 		float currentSliderOpacity = m_wVoiceRangeSlider.GetOpacity();
 		float currentTextOpacity = m_wVoiceRangeText.GetOpacity();
@@ -55,43 +57,43 @@ class CVVR_HUD: SCR_InfoDisplay {
 		int actionValueDown = m_InputManager.GetActionValue("CVVR_VoiceRangeDown");
 		
 		if (actionValueUp != 0 || actionValueDown != 0) {
-			m_ClientComponent.ChangeVoiceRange(actionValueUp + actionValueDown);
+			m_PlayerController.ChangeVoiceRange(actionValueUp + actionValueDown);
 		};
 		
-		m_wVoiceRangeSlider.SetCurrent(m_ClientComponent.ReturnLocalVoiceRange());
+		m_wVoiceRangeSlider.SetCurrent(m_VoNComponent.m_fVoiceRange * 5);
 		
 		// Color
-		switch (m_ClientComponent.ReturnLocalVoiceRange())
+		switch (m_VoNComponent.m_fVoiceRange)
 		{
-			case 1: 
+			case 0.2: 
 			{ 
 				m_wVoiceRangeSlider.SetColor(Color.SpringGreen);
 				m_wVoiceRangeText.SetText("Whisper"); 
 				m_wVoiceRangeText.SetColor(Color.SpringGreen);
 				break; 
 			};
-			case 2:
+			case 0.4:
 			{
 				m_wVoiceRangeSlider.SetColor(Color.Green); 
 				m_wVoiceRangeText.SetText("Close Contact"); 
 				m_wVoiceRangeText.SetColor(Color.Green);
 				break; 
 			};
-			case 3:
+			case 0.6:
 			{
 				m_wVoiceRangeSlider.SetColor(Color.Yellow); 
 				m_wVoiceRangeText.SetText("Normal"); 
 				m_wVoiceRangeText.SetColor(Color.Yellow);
 				break; 
 			};
-			case 4:
+			case 0.8:
 			{
 				m_wVoiceRangeSlider.SetColor(Color.Red); 
 				m_wVoiceRangeText.SetText("Yelling"); 
 				m_wVoiceRangeText.SetColor(Color.Red);
 				break; 
 			};
-			case 5:
+			case 1:
 			{
 				m_wVoiceRangeSlider.SetColor(Color.DarkRed);
 				m_wVoiceRangeText.SetText("May I Speak To Your Manager");  
